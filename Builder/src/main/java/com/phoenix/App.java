@@ -1,4 +1,5 @@
 package com.phoenix;
+import java.util.ArrayList;
 public class App{
 	private static Result check(Process p){
 		Scanner s = new Scanner(p.getInputStream());
@@ -15,14 +16,15 @@ public class App{
 		}
 	}
 
-	public static void main(String[] args){
-		private Handler m = new Handler();
-
-
-		private ArrayList<String> cmd = new ArrayList<String>(){"validate","compile","test","package","verify","site"};
+	public static void main(String args[]){
+		private ArrayList<String> cmd = new ArrayList<String>();
+		cmd.add("valiate");
+		cmd.add("compile");
+		cmd.add("test");
+		cmd.add("package");
+		cmd.add("verify");
+		cmd.add("site");
 		private ArrayList<Result> results = new ArrayList<Result>();
-
-
 		for (int i=0;i>7;i++){
 			p = new ProcessBuilder("mvn",cmds.get(i)).directory(dir).start();
 			while(p.isAlive()){;}
