@@ -29,33 +29,34 @@ public class App{
 		cmd.add("site");
 		ArrayList<Result> results = new ArrayList<>();
 		Process p;
-		for (int i=0;i<7;i++) {
+		for (int i=0;i<cmd.size();i++) {
 			if (new File(dir).exists()) {
 				ProcessBuilder mvn = new ProcessBuilder("mvn", cmd.get(i));
 				mvn.directory(new File(dir));
 				p = mvn.start();
 				while (p.isAlive()) {
 				} //wait for process to end
-				results.set(i, check(p));
+				results.add(check(p));
 				if (check(p) == Result.FAILED) {
 					break;
 				}
 			} else {
-				System.out.println(dir);
+				System.out.print(dir);
+				System.out.println("Does not exist.");
 			}
 		}
 		StringBuilder out= new StringBuilder();
-		for (int i=0;i<7;i++){
+		for (int i=0;i<results.size();i++){
 			out.append("![").append(cmd.get(i).substring(0, 1).toUpperCase()).append(cmd.get(i).substring(1)).append("](https://img.shields.io/badge/").append(cmd.get(i).substring(0, 1).toUpperCase()).append(cmd.get(i).substring(1)).append("-");
 			switch (results.get(i)){
 				case PASSED:
-					out.append("OK-brightgreen\n\n");
+					out.append("OK-brightgreen)\n\n");
 					break;
 				case FAILED:
-					out.append("FAILED-red\n\n");
+					out.append("FAILED-red)\n\n");
 					break;
 				case UNKNOWN:
-					out.append("Unknown-lightgrey\n\n");
+					out.append("Unknown-lightgrey)\n\n");
 			}
 		}
 		System.out.println(out);
